@@ -1,0 +1,29 @@
+# docker-compose.yml — local only. Use a secret manager in production.
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: banking_dev
+      POSTGRES_USER: banking_dev
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in .env}
+    ports: ["127.0.0.1:5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+      - ./infra/postgres/002_rls.sql:/docker-entrypoint-initdb.d/002_rls.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U banking_dev -d banking_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  neo4j:
+    image: neo4j:5
+    environment:
+      NEO4J_AUTH: ${NEO4J_AUTH:?set in .env}
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    volumes: ["neo4jdata:/data"]
+volumes:
+  pgdata:
+  neo4jdata:

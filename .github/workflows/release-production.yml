@@ -1,0 +1,26 @@
+name: Release production
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_digest:
+        description: Approved staging image digest
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    # Configure required reviewers on the production environment before enabling.
+    if: vars.PRODUCTION_RELEASE_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - env:
+          IMAGE_DIGEST: ${{ inputs.image_digest }}
+        run: sh scripts/deploy/production.sh
