@@ -30,3 +30,11 @@ The starter requires no local database or credentials. When dependencies change,
 
 - [Execution plan](Hybrid_RAG_Execution_Plan.md)
 - [Task completion tracker](Hybrid_RAG_Task_Completion_Tracker.md)
+
+## Repository layout
+
+- `services/api/` contains the FastAPI gateway and scaffolds for scoped tools, specialists, retrieval and telemetry.
+- `apps/web/` contains workspace and component scaffolds. Its npm manifest and lockfile contain no frontend dependencies yet.
+- `infra/`, `pipelines/` and `data/` hold local database initialization, refresh pipeline scaffolds and synthetic or approved evaluation fixtures.
+- `.github/` contains API CI and deployment workflow scaffolds. Deployment adapters fail until configured. See the [runbooks](docs/runbooks.md) for delivery setup.
+- `docs/` holds [API contracts](docs/api-contracts.md), the [security model](docs/security-model.md) and architecture decision records.

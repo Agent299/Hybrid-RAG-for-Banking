@@ -1,0 +1,9 @@
+# Replace the examples with approved GitHub owners who have repository write access.
+# *                       @your-org/platform-reviewers
+# /.github/               @your-org/security-reviewers
+# /services/api/app/core/ @your-org/security-reviewers
+# /services/api/app/tools/ @your-org/backend-reviewers @your-org/security-reviewers
+# /infra/                 @your-org/data-reviewers @your-org/security-reviewers
+# /pipelines/             @your-org/data-reviewers
+# /data/golden/           @your-org/ai-eval-reviewers
+# /scripts/deploy/        @your-org/platform-reviewers @your-org/security-reviewers
